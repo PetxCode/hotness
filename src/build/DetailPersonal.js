@@ -3,9 +3,8 @@ import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { app } from "../base";
 import { AuthContext } from "./Global/AuthProvider";
-import ViewerData from "./ViewerData";
 
-const Personal = ({ who, time, id }) => {
+const DetailPersonal = ({ who, time }) => {
   const { currentUser } = useContext(AuthContext);
   const [userData, setUserData] = useState([]);
 
@@ -21,7 +20,7 @@ const Personal = ({ who, time, id }) => {
   };
   useEffect(() => {
     getUser();
-  }, []);
+  }, [userData]);
   return (
     <div>
       <Top>
@@ -31,12 +30,11 @@ const Personal = ({ who, time, id }) => {
           <Time>{moment(time?.toDate()).fromNow()}</Time>
         </Detail>
       </Top>
-      <ViewerData id={id} />
     </div>
   );
 };
 
-export default Personal;
+export default DetailPersonal;
 
 const Time = styled.div`
   font-size: 10px;
