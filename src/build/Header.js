@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { app } from "../base";
 import { AuthContext } from "./Global/AuthProvider";
-import logo from "./hulu.png";
+import logo from "./logo10.png";
 
 const Header = () => {
   const { currentUser } = useContext(AuthContext);
@@ -24,7 +24,7 @@ const Header = () => {
 
   useEffect(() => {
     getUser();
-  }, []);
+  }, [userData]);
   return (
     <Container>
       <Wrapper>

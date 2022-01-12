@@ -9,12 +9,16 @@ import Personal from "./Personal";
 import Personal2 from "./Personal2";
 import firebase from "firebase";
 import { AuthContext } from "./Global/AuthProvider";
+import DetailPersonal from "./DetailPersonal";
+import axios from "axios";
 
 const ImageDetail = ({}) => {
   const { currentUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const { id } = useParams();
   const [data, setData] = useState([]);
+  const [viewer, setViewer] = useState("");
+
   const marks = [
     {
       value: 0,
@@ -93,12 +97,38 @@ const ImageDetail = ({}) => {
     // window.location.reload();
   };
 
+  const voteViewers = async () => {
+    await app
+      .firestore()
+      .collection("post")
+      .doc(id)
+      .collection("viewer")
+      .doc(currentUser.uid)
+      .set({
+        viewedBy: currentUser.uid,
+        time: firebase.firestore.FieldValue.serverTimestamp(),
+        viewer,
+      });
+    // window.location.reload();
+  };
+
   const valuetext = (value) => {
     return `${value}°C`;
   };
 
+  const getViewer = async () => {
+    const res = await axios.get("https://api64.ipify.org/?format=json");
+    if (res) {
+      setViewer(res.data.ip);
+      console.log("IP: ", viewer);
+      console.log("IP from Console: ", res.data.ip);
+    }
+  };
+
   useEffect(() => {
     getDataProfile();
+    getViewer();
+    voteViewers();
   }, []);
 
   return (
@@ -123,20 +153,21 @@ const ImageDetail = ({}) => {
           <Div cl="red">Hot</Div>
         </Slide>
 
-        <Vote
-          bg="#004080"
-          cl="white"
-          onClick={() => {
-            console.log("show: ", valueHolder);
-            voteHotness();
-          }}
-        >
-          Vote
-        </Vote>
+        {currentUser?.uid ? (
+          <Vote
+            bg="#004080"
+            cl="white"
+            onClick={() => {
+              console.log("show: ", valueHolder);
+              voteHotness();
+            }}
+          >
+            Vote
+          </Vote>
+        ) : null}
         <Holder>
           <Card>
-            <Personal who={data?.createdBy} time={data?.createdAt} />
-
+            <DetailPersonal who={data?.createdBy} time={data?.createdAt} />
             <MainImage src={data?.yourPix} />
           </Card>
         </Holder>

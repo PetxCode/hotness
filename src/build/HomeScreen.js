@@ -34,7 +34,7 @@ const HomeScreen = () => {
           {myData?.map(({ createdAt, createdBy, id, yourPix }) => (
             <Card key={id} to={`/${id}`}>
               <Hold>
-                <Personal time={createdAt} who={createdBy} />
+                <Personal time={createdAt} who={createdBy} id={id} />
                 <Personal2 who={createdBy} id={id} />
               </Hold>
 

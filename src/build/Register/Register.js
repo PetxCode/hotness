@@ -53,6 +53,7 @@ const Register = () => {
         email,
         userName,
         avatar,
+        who: newUser.user.uid
       });
     }
     navigate("/");

@@ -43,15 +43,15 @@ const Personal2 = ({ who, time, id }) => {
   const getRating = async () => {
     setTotalVoters(
       parseInt(voters?.filter((el) => el.vote === 100).length * 100) +
-        parseInt(voters?.filter((el) => el.vote === 90).length * 100) +
-        parseInt(voters?.filter((el) => el.vote === 80).length * 100) +
-        parseInt(voters?.filter((el) => el.vote === 70).length * 100) +
-        parseInt(voters?.filter((el) => el.vote === 40).length * 100) +
+        parseInt(voters?.filter((el) => el.vote === 90).length * 90) +
+        parseInt(voters?.filter((el) => el.vote === 80).length * 80) +
+        parseInt(voters?.filter((el) => el.vote === 70).length * 70) +
+        parseInt(voters?.filter((el) => el.vote === 40).length * 40) +
         parseInt(voters?.filter((el) => el.vote === 50).length * 50) +
-        parseInt(voters?.filter((el) => el.vote === 30).length * 50) +
-        parseInt(voters?.filter((el) => el.vote === 20).length * 50) +
-        parseInt(voters?.filter((el) => el.vote === 10).length * 50) +
-        parseInt(voters?.filter((el) => el.vote === 0).length * 50) +
+        parseInt(voters?.filter((el) => el.vote === 30).length * 30) +
+        parseInt(voters?.filter((el) => el.vote === 20).length * 20) +
+        parseInt(voters?.filter((el) => el.vote === 10).length * 10) +
+        parseInt(voters?.filter((el) => el.vote === 0).length * 0) +
         parseInt(voters?.filter((el) => el.vote === 60).length * 60)
     );
     setTotalPoints(voters.length);
@@ -62,7 +62,7 @@ const Personal2 = ({ who, time, id }) => {
     votersRecords();
     getRating();
     setResult((totalVoters / totalPoints / 10).toFixed(1));
-  }, []);
+  }, [voters]);
 
   return (
     <div>
@@ -123,7 +123,7 @@ const Top = styled.div`
   text-align: left;
   width: 100%;
   flex-direction: column;
-  font-size: 13px;
+  font-size: 11px;
   display: flex;
   /* align-items: center; */
   padding-top: 10px;
